@@ -1,7 +1,9 @@
-const container = document.querySelector('#badguys')
+const container = document.querySelector('.allCriminals')
+let pageNum = 1
 
 function createList() {
-    $.get(`https://api.fbi.gov/wanted/v1/list`, (data) => {
+    $.get(`https://api.fbi.gov/wanted/v1/list`, URLSearchParams={'page': pageNum}, (data) => {
+        console.log(data.items[0])
         var list = data.items
         for (let i = 0; i < list.length; i++) {
             const span = document.createElement('span')
@@ -28,7 +30,7 @@ function createList() {
 
             } else {
 
-                img.src = "https://as1.ftcdn.net/v2/jpg/02/06/01/90/1000_F_206019050_t9G36mVmDHezJfeH1YSWy2BwbbG7Oou8.jpg"
+                img.src = list[i].images[0].original
                 img.className = "at-large"
             }
 
@@ -45,7 +47,26 @@ function createList() {
 }
 createList()
 
+
 const button = document.querySelector('button')
 button.addEventListener('click', function() {
-    alert('Thank you for sending us your ip address')
+    alert('Thank you for sending us your IP address')
 })
+
+const next = document.querySelector('.next')
+next.addEventListener('click' , () => {
+    $(container).empty()
+    pageNum += 1
+    console.log(pageNum)
+    createList()
+})
+
+const previous = document.querySelector('.previous')
+previous.addEventListener('click', () => {
+    if (pageNum > 1) {
+        $(container).empty()
+        pageNum -= 1
+        createList()
+    }
+})
+
