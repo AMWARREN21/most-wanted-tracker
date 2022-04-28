@@ -1,9 +1,7 @@
 const container = document.querySelector('.allCriminals')
 let pageNum = 1
-
 function createList() {
     $.get(`https://api.fbi.gov/wanted/v1/list`, URLSearchParams={'page': pageNum}, (data) => {
-        console.log(data.items[0])
         var list = data.items
         for (let i = 0; i < list.length; i++) {
             const span = document.createElement('span')
@@ -34,22 +32,21 @@ function createList() {
                 img.className = "at-large"
             }
 
-            span.appendChild(img)
             h3.appendChild(p)
             h3.appendChild(p2)
-            span.appendChild(h3)
             h3.appendChild(a)
+            span.appendChild(img)
+            span.appendChild(h3)
             container.appendChild(span)
             console.log(list[i])
         }
-        console.log(container)
     })
 }
 createList()
 
 
 const button = document.querySelector('button')
-button.addEventListener('click', function() {
+button.addEventListener('click', () => {
     alert('Thank you for sending us your IP address')
 })
 
