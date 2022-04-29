@@ -100,7 +100,7 @@ next.addEventListener('click' , () => {
     $(container).empty()
     pageNum += 1
     console.log(pageNum)
-    createList()
+    pageSearch()
 })
 
 const previous = document.querySelector('.previous')
@@ -108,6 +108,6 @@ previous.addEventListener('click', () => {
     if (pageNum > 1) {
         $(container).empty()
         pageNum -= 1
-        createList()
+        pageSearch()
     }
 })
